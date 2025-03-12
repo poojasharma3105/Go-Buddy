@@ -5,9 +5,9 @@ import { GetPlaceDetails, PHOTO_REF_URL } from '../service/GlobalApi';
 
 const InfoSection = ({ trip }) => {
  
-  const [photoUrl, setPhotoUrl]=useState();
-  useEffect(() => {
+  const [photoUrl, setPhotoUrl] = useState();
 
+  useEffect(() => {
     if (trip?.userSelection?.location?.label) {
       console.log('Location label found:', trip.userSelection.location.label);
       GetPlacePhoto();
@@ -43,26 +43,25 @@ const InfoSection = ({ trip }) => {
       console.error('API Error:', err);
     }
   };
-  
 
   if (!trip?.userSelection?.location?.label) {
     return <div>Loading trip details...</div>;
   }
 
   return (
-    <div>
+    <div className="p-4">
       <img 
         src={photoUrl || placeholder} 
         alt="Trip destination" 
-        className='h-[340px] w-full object-cover rounded-xl' 
+        className='h-[340px] w-full object-cover rounded-xl'
         onError={(e) => e.target.src = placeholder}
       />
-      <div className='flex items-center justify-between'>
-        <div className='my-5 flex flex-col gap-2'>
+      <div className='flex flex-col md:flex-row items-start md:items-center justify-between mt-5'>
+        <div className='flex flex-col gap-4 w-full md:w-2/3'>
           <h2 className='text-2xl font-bold'>
             {trip?.userSelection?.location?.label || 'Unknown Destination'}
           </h2>
-          <div className='flex gap-5'>
+          <div className='flex flex-wrap gap-3'>
             <h2 className='p-1 px-3 rounded-full bg-gray-200 text-gray-500'>
               📆 {trip?.userSelection?.days || 0} Day
             </h2>
@@ -75,9 +74,9 @@ const InfoSection = ({ trip }) => {
           </div>
         </div>
         <button 
-          className='p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition'
+          className='mt-4 md:mt-0 p-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition md:w-auto'
         >
-          <IoIosSend />
+          <IoIosSend className="text-xl" />
         </button>
       </div>
     </div>

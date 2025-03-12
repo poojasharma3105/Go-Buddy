@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import InfoSection from '../components/InfoSection';
 import HotelSection from '../components/HotelSection';
 import DailyVisits from '../components/DailyVisits';
-import Footer from '../components/Footer';
 
 const ViewTrip = () => {
 
@@ -30,7 +29,7 @@ const ViewTrip = () => {
         }
     }
   return (
-    <div className='p-10 md:px-20 lg:px-44 xl:px-56'>
+    <div className='p-5 md:px-20 lg:px-44 xl:px-56'>
       {/* Information section */}
       <InfoSection trip={trip} />
 
@@ -38,7 +37,7 @@ const ViewTrip = () => {
       <HotelSection trip={trip}/>
 
       {/* Daily Plans */}
-      <DailyVisits trip={trip}/>
+      <DailyVisits trip={trip} />
       
     </div>
   )

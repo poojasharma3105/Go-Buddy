@@ -10,25 +10,30 @@ import Footer from './components/Footer';
 function App() {
   return (
     <Router>
-      <div className='App'>
+      <div className="App flex flex-col min-h-screen">
         <Header />
         <Toaster />
-        <Routes>
-          <Route path="/" element={
-            <>
-              <section>
-                <Hero />
-              </section>
-            </>
-          }
-          />
-          <Route path="/create-trip" element={<CreateTrip />} />
-          <Route path='/trip/:tripId' element={<ViewTrip/>} />
-        </Routes>
+        <div className="flex-grow">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <section>
+                    <Hero />
+                  </section>
+                </>
+              }
+            />
+            <Route path="/create-trip" element={<CreateTrip />} />
+            <Route path="/trip/:tripId" element={<ViewTrip />} />
+          </Routes>
+        </div>
         <Footer />
       </div>
     </Router>
-  )
+  );
 }
+
 
 export default App

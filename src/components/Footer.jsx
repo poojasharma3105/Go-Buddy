@@ -3,7 +3,7 @@ import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <div className='bg-gray-800 text-white p-4 mt-10'>
+    <div className='bg-gray-800 text-white p-4'>
       <div className='container mx-auto flex flex-col md:flex-row justify-between items-center'>
         <p className='text-sm'>&copy; {new Date().getFullYear()} Go Buddy. All rights reserved.</p>
         <div className='flex gap-4'>
