@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Italianno&family=Parisienne&family=Lobster&family=Alex+Brush&family=Courgette&family=Yesteryear&family=Cinzel+Decorative&family=Prata&family=Zeyada&family=Cormorant+Italic&display=swap');
+@import "tailwindcss";
+
+body {
+  font-family:'Cormorant Italic', 'serif';
+}
