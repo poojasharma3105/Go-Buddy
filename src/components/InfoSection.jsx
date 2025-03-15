@@ -53,7 +53,7 @@ const InfoSection = ({ trip }) => {
       <img 
         src={photoUrl || placeholder} 
         alt="Trip destination" 
-        className='h-[340px] w-full object-cover rounded-xl'
+        className='h-[400px] w-full object-fill rounded-xl'
         onError={(e) => e.target.src = placeholder}
       />
       <div className='flex flex-col md:flex-row items-start md:items-center justify-between mt-5'>
