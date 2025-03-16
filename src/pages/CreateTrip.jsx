@@ -104,7 +104,6 @@ const CreateTrip = () => {
             place,
             onChange: (place) => { setPlace(place); handleInputChange('location', place) }
           }}
-          placeholder="Search for a destination"
         />
       </div>
 

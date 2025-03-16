@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import { Toaster } from 'sonner';
 import ViewTrip from './pages/ViewTrip';
 import Footer from './components/Footer';
+import MyTrip from './pages/MyTrip';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           />
           <Route path="/create-trip" element={<CreateTrip />} />
           <Route path="/trip/:tripId" element={<ViewTrip />} />
+          <Route path="/my-trips" element={<MyTrip />} />
         </Routes>
       </div>
       <Footer />

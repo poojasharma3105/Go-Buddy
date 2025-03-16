@@ -5,32 +5,25 @@ import { GetPlaceDetails, PHOTO_REF_URL } from '../service/GlobalApi';
 
 const InfoSection = ({ trip }) => {
  
-  const [photoUrl, setPhotoUrl] = useState();
+  const [photoUrl, setPhotoUrl] = useState(null);
 
   useEffect(() => {
-    if (trip?.userSelection?.location?.label) {
-      console.log('Location label found:', trip.userSelection.location.label);
+    if (trip) {
       GetPlacePhoto();
-    } else {
-      console.warn('Location label is missing or still loading');
     }
   }, [trip]);
 
   const GetPlacePhoto = async () => {
+    if (!trip?.userSelection?.location?.label) return;
+
+    const data = { textQuery: trip.userSelection.location.label };
+
     try {
-      if (!trip?.userSelection?.location?.label) {
-        console.warn('Location label is missing');
-        return;
-      }
-      
-      const data = { textQuery: trip.userSelection.location.label };
-      console.log('Request data:', data);
-      
-      const res = await GetPlaceDetails(data);
-      console.log('API Response:', res);
-  
-      if (res.data.places?.length) {
-        const photoName = res.data.places[0]?.photos?.[3]?.name || res.data.places[0]?.photos?.[0]?.name;
+      const res = await GetPlaceDetails(data); // Ensure this function is properly defined
+
+      if (res?.data?.places?.length) {
+        const photoName =
+          res.data.places[0]?.photos?.[3]?.name || res.data.places[0]?.photos?.[0]?.name;
         if (photoName) {
           setPhotoUrl(PHOTO_REF_URL.replace('{NAME}', photoName));
         } else {
@@ -39,8 +32,8 @@ const InfoSection = ({ trip }) => {
       } else {
         console.warn('No places found for the query');
       }
-    } catch (err) {
-      console.error('API Error:', err);
+    } catch (error) {
+      console.error("Error fetching place photo:", error);
     }
   };
 

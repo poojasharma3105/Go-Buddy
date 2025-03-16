@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import travel from "../assets/travel.webp";
 
 const Hero = () => {
   return (
-    <div className='flex flex-col items-center px-4 md:px-16 lg:mx-56 gap-9'>
+    <div className='flex flex-col items-center px-4 md:px-16 lg:px-56 gap-9'>
       <h1 className='font-extrabold text-3xl md:text-4xl lg:text-[45px] text-center mt-16'>
         <span className='text-[#f56551]'>Discover Your Next Adventure with AI:</span>
         <br />
@@ -18,6 +19,8 @@ const Hero = () => {
           Get Started, It's Free
         </button>
       </Link>
+
+      <img src={travel} alt="Hero" className='px-0 md:px-16 lg:px-56' />
     </div>
   );
 };
