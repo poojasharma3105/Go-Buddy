@@ -46,7 +46,7 @@ const PlaceCardItem = ({ activity }) => {
                     target="_blank"
                     className="self-start mt-2"
                 >
-                    <button className="flex items-center gap-1 p-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200 text-xs">
+                    <button className="flex items-center gap-1 p-1 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-200 text-xs cursor-pointer">
                         <FaMapLocationDot />
                         View on Map
                     </button>

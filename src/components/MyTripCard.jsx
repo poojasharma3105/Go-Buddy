@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import placeholder from "../assets/placeholder.webp";
 import { GetPlaceDetails, PHOTO_REF_URL } from '../service/GlobalApi';
 import { Link } from 'react-router-dom';
+import { doc, deleteDoc } from 'firebase/firestore';
+import { db } from '../service/firebaseConfig';
+import { toast } from 'sonner';
+import { AiOutlineDelete } from "react-icons/ai";
 
-const MyTripCard = ({ trip }) => {
+const MyTripCard = ({ trip, onDelete }) => {
   const [photoUrl, setPhotoUrl] = useState(null);
 
   useEffect(() => {
@@ -36,27 +40,53 @@ const MyTripCard = ({ trip }) => {
     }
   };
 
+  const handleDelete = async () => {
+    if (!trip?.id) return;
+
+    try {
+      await deleteDoc(doc(db, "Trips", trip.id));
+      toast.success("Trip deleted successfully!");
+      onDelete(trip.id); // Remove from UI
+    } catch (error) {
+      console.error("Error deleting trip:", error);
+      toast.error("Failed to delete trip.");
+    }
+  };
+
   if (!trip?.userSelection?.location?.label) {
     return <div className="text-center text-gray-500">Loading trip details...</div>;
   }
 
   return (
-    <Link to={`/trip/${trip.id}`}>
-    <div className="max-w-sm w-full mx-auto bg-white shadow-lg rounded-xl overflow-hidden hover:scale-105 transition duration-300 ease-in-out"> 
-      <img 
-        src={photoUrl || placeholder} 
-        alt="Trip location" 
-        className="w-full h-48 object-cover" 
-        onError={(e) => e.target.src = placeholder} 
-      />
-      <div className="p-4">
-        <h2 className="text-lg font-bold text-gray-800">{trip?.userSelection?.location?.label}</h2>
+    <div className="relative w-72 h-64 bg-white shadow-lg rounded-xl overflow-hidden hover:scale-105 transition duration-300 ease-in-out flex flex-col"> 
+      {/* Delete Button */}
+      <button 
+        onClick={handleDelete} 
+        className="absolute top-3 right-3 bg-red-500 text-white p-2 rounded-full hover:bg-red-700 transition duration-300 cursor-pointer"
+      >
+        <AiOutlineDelete className="h-5 w-5" />
+      </button>
+
+      {/* Image with fixed height */}
+      <Link to={`/trip/${trip.id}`}>
+        <div className="w-full h-40">
+          <img 
+            src={photoUrl || placeholder} 
+            alt="Trip location" 
+            className="w-full h-full object-cover" 
+            onError={(e) => e.target.src = placeholder} 
+          />
+        </div>
+      </Link>
+
+      {/* Text Content */}
+      <div className="p-4 flex flex-col justify-between">
+        <h2 className="text-lg font-bold text-gray-800 truncate">{trip?.userSelection?.location?.label}</h2>
         <p className="text-sm text-gray-500">
           {trip?.userSelection?.days} days trip with {trip?.userSelection?.budget} budget
         </p>
       </div>
     </div>
-    </Link>
   );
 };
 
