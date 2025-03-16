@@ -3,14 +3,15 @@ import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { AI_PROMPT, SelectBudgetOptions, SelectTravelsList } from '../constants/options';
 import { toast } from 'sonner';
 import { chatSession } from '../service/AImodel';
-import logo from '../assets/logo.webp';
-import { FcGoogle } from 'react-icons/fc';
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from 'axios';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../service/firebaseConfig';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import { IoClose } from "react-icons/io5"; 
+import logo from '../assets/logo.webp';
 
 const CreateTrip = () => {
   const [place, setPlace] = useState();
@@ -165,6 +166,42 @@ const CreateTrip = () => {
           {loading ? <AiOutlineLoading3Quarters className='h-7 w-7 animate-spin' /> : 'Generate Trip'}
         </button>
       </div>
+
+      {/* Dialog Box */}
+            {openDialog && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] relative">
+                  {/* Close Button */}
+                  <button
+                    className="absolute top-3 right-3 text-gray-600 hover:text-gray-900 cursor-pointer"
+                    onClick={() => setOpenDialog(false)}
+                  >
+                    <IoClose size={24} />
+                  </button>
+      
+                  {/* Logo and Title */}
+                  <div className="flex flex-col ">
+                    <div className="flex items-center">
+                    <img src={logo} alt="logo" className="h-10 w-auto" /> &nbsp;
+                    <p>Go Buddy</p>
+                    </div>
+                    <h2 className="text-lg font-bold mt-4">Sign In With Google</h2>
+                    <p className="text-gray-500  text-sm mt-1">
+                      Sign in to the App with Google authentication securely
+                    </p>
+                  </div>
+      
+                  {/* Sign In Button */}
+                  <button
+                    className="w-full mt-5 flex items-center justify-center gap-3 bg-black text-white p-3 rounded-md shadow-md hover:bg-gray-800 cursor-pointer"
+                    onClick={() => login()}
+                  >
+                    <FcGoogle className="h-6 w-6" />
+                    <span>Sign In With Google</span>
+                  </button>
+                </div>
+              </div>
+            )}
     </div>
   );
 };
